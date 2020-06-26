@@ -5,11 +5,11 @@
 
 // Jogo da velha em C.
 
-// ExplicaÁ„o de como foi feito:
+// Explica√ß√£o de como foi feito:
 
-// Primeiro criei uma funÁ„o extra "tabuleiro". Para desenhar o tabuleiro e poder usar a funÁ„o quando eu quiser.
+// Primeiro criei uma fun√ß√£o extra "tabuleiro". Para desenhar o tabuleiro e poder usar a fun√ß√£o quando eu quiser.
 
-// ApÛs isso usei o do while para comeÁar todo o cÛdigo. Dentro, coloquei muitos comandos condicionais e laÁos de repetitiÁ„o.
+// Ap√≥s isso usei o do while para come√ßar todo o c√≥digo. Dentro, coloquei muitos comandos condicionais e la√ßos de repetiti√ß√£o.
 
 void tabuleiro(char casas2[9]){
   system("cls"); // Limpar a tela sempre que o tabuleiro aparecer, para ele"carregar".
@@ -26,22 +26,23 @@ int main(){
 
   printf("\t\t|==============================|\n");
   printf("\t\t|                              |\n");
-  printf("\t\t|   SEJA BEM VINDO AO GAME     |\n");
+  printf("\t\t|   SEJA BEM VINDO AO JOGO     |\n");
   printf("\t\t|                              |\n");
   printf("\t\t|    PARA INICIAR APERTE       |\n");
   printf("\t\t|                              |\n");
   printf("\t\t|           ENTER              |\n");
-  printf("\t\t|______________________________|\n");
+  printf("\t\t|______________________________|\n\n");
 
   getch();
 
   char casas[9] = {'1','2','3','4','5','6','7','8','9'};
-  tabuleiro(casas); // Aqui estamos jogando o valor de casas, para dentro da funnÁ„o 'tabuleiro'.
+  tabuleiro(casas); // Aqui estamos jogando o valor de casas, para dentro da funn√ß√£o 'tabuleiro'.
 
   char jogar_novamente;
   int contador_jogadas,jogadas,vez=0,i;
+
   do{
-    contador_jogadas = 1; //comeÁa sempre em 1
+    contador_jogadas = 1; //come√ßa sempre em 1
 
     for(i=0;i<=8;i++){  // LIMPANDO O TABULEIRO
       casas[i] = ' ';
@@ -51,7 +52,7 @@ int main(){
 
       tabuleiro(casas);
 
-      if(vez%2==0){
+      if(vez%2==0){  // Criamos uma condi√ß√£o para mostrar de quem √© a vez de jogar.
         printf("Vez jogador X ! \n");
       }
       else{
@@ -61,34 +62,25 @@ int main(){
       printf("Digite em qual casa deseja marcar a jogada ? ['1' - '9']\n");
       scanf("%i",&jogadas);
 
-      if(vez%2==0){
+      if ((jogadas < 1) || (jogadas > 9)){ //se a jogada for nula, o jogador que errou perde a vez, e a jogada recebe 0.
+        jogadas = 0;
+      }
+      else if(casas[jogadas-1] != ' '){ //'-1' pois ele come√ßa na casa 0.
+        jogadas = 0;
+      }
+
+      if(vez%2==0){   // Condi√ß√£o para a marca√ß√£o
         casas[jogadas-1] = 'X';
       }
       else{
         casas[jogadas-1] = 'O';
       }
 
-      if (jogadas < 1 || jogadas > 9){ //se a jogada for nula, recebe 0, para tentar outra vez.
-        jogadas = 0;
-      }
-      else if(casas[jogadas-1] != ' '){ //'-1' pois ele comeÁa na casa 0.
-        jogadas = 0;
-      }
-      else{
-        if(vez%2==0){ // Se for um numero par È o X quem joga
-          casas[jogadas-1] = 'X';
+        // Sempre que alguem jogar, o contador recebe +1 e a vez tamb√âm. Pois so pode ir at√© 9.
+      contador_jogadas++;
+      vez++;
 
-        }
-        else{ // Se for impar È a vez do O
-          casas[jogadas-1] = 'O';
-        }
-      }
-
-        // Sempre que alguem jogar, o contador recebe +1 e a vez tambÈm. Pois so pode ir atÈ 9.
-        contador_jogadas++;
-        vez++;
-
-      // CONDI«’ES PARA VITORIA E ENCERRAMENTO DO GAME!!!! //
+      // CONDI√á√ïES PARA VITORIA E ENCERRAMENTO DO GAME!!!! //
 
       // PRIMEIRO AS VITORIAS DE X NA LINHA:
       if((casas[0]=='X') &&(casas[1]=='X')&&(casas[2]=='X')){
@@ -160,10 +152,10 @@ int main(){
       printf("\nEmpate!!!!\n");
     }
     if(contador_jogadas == 11){
-      printf("\nGanhador È o X !!!\n");
+      printf("\nGanhador: X !!!\n");
     }
     if(contador_jogadas == 12){
-      printf("\nGanhador È o O !!! \n");
+      printf("\nGanhador: O !!! \n");
     }
 
     printf("Gostaria de jogar outra vez ?['s' - 'n']\n");
